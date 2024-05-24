@@ -1,12 +1,5 @@
-import type { Metadata } from "next";
-
-import { Navbar } from "./_components/navbar";
-import { Footer } from "./_components/footer";
-
-export const metadata: Metadata = {
-   title: "Taskify",
-   description: "No 1 task management software",
-};
+import { Navbar } from "../../components/marketing/navbar";
+import { Footer } from "../../components/marketing/footer";
 
 export default function MarketingLayout({
    children,

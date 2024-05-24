@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import Logo from "@/components/logo";
+import Logo from "@/components/shared/logo";
 
 export function Footer() {
    return (
