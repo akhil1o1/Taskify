@@ -5,7 +5,7 @@ const isPublicRoute = createRouteMatcher(["/", "/sign-in(.*)", "/sign-up(.*)"]);
 
 export default clerkMiddleware((auth, req) => {
    // redirecting from home/landing page to select-org or dashboard based on the auth status
-   console.log(isPublicRoute(req));
+   // console.log(isPublicRoute(req));
    if (isPublicRoute(req) && auth().userId) {
       let path = "/select-org";
 
@@ -22,7 +22,7 @@ export default clerkMiddleware((auth, req) => {
       return auth().redirectToSignIn({ returnBackUrl: req.url });
    }
 
-   // if user is signedin but no organization is selected
+   // if user is signed in but no organization is selected
    if (
       auth().userId &&
       !auth().orgId &&

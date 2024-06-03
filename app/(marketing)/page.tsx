@@ -26,7 +26,7 @@ export default function MarketingPage() {
          >
             <div className="mb-4 flex items-center justify-center border shadow-sm p-4 bg-amber-100 text-amber-700 rounded-full uppercase">
                <Medal className="w-6 h-6 mr-2" />
-               no 1 task management
+               no 1 task management software
             </div>
             <h1 className="text-3xl  md:text-6xl text-center text-neutral-800 mb-6">
                Taskify helps teams move
