@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+// mobile sidebar states
+
 type MobileSidebarStore = {
    isOpen: boolean;
    onOpen: () => void;

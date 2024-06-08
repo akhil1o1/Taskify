@@ -53,7 +53,13 @@ export default function Sidebar({
    if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
       return (
          <>
-            <Skeleton />
+            <div className="flex items-center justify-between mb-2">
+               <Skeleton className="w-[50%] h-10" />
+               <Skeleton className="w-10 h-10" />
+            </div>
+            <NavItem.Skeleton />
+            <NavItem.Skeleton />
+            <NavItem.Skeleton />
          </>
       );
    }

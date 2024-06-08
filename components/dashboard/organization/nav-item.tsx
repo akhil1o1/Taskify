@@ -10,6 +10,7 @@ import {
    AccordionTrigger,
    AccordionContent,
 } from "@/components/ui/accordion";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 
 export type Organization = {
@@ -19,7 +20,7 @@ export type Organization = {
    name: string;
 };
 
-interface navItemProps {
+interface NavItemProps {
    isActive: boolean;
    isExpanded: boolean;
    onExpand: (id: string) => void;
@@ -31,7 +32,7 @@ export default function NavItem({
    isExpanded,
    onExpand,
    organization,
-}: navItemProps) {
+}: NavItemProps) {
    const router = useRouter();
    const pathname = usePathname();
 
@@ -83,7 +84,6 @@ export default function NavItem({
                <span className="font-medium text-sm">{organization.name}</span>
             </div>
          </AccordionTrigger>
-
          <AccordionContent>
             {routes.map((route) => (
                <Button
@@ -104,3 +104,14 @@ export default function NavItem({
       </AccordionItem>
    );
 }
+
+NavItem.Skeleton = () => {
+   return (
+      <div className="flex items-center gap-x-2 mb-1">
+         <div className="w-10 h-10 relative shrink-0">
+            <Skeleton className="h-full w-full absolute" />
+         </div>
+         <Skeleton className="h-10 w-full" />
+      </div>
+   );
+};
