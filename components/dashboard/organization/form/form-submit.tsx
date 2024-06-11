@@ -3,7 +3,7 @@
 import { useFormStatus } from "react-dom";
 
 import { cn } from "@/lib/utils";
-import { Button } from "../ui/button";
+import { Button } from "../../../ui/button";
 
 interface FormSubmitProps {
    children: React.ReactNode;
@@ -23,7 +23,7 @@ export default function FormSubmit({
    children,
    disabled,
    className,
-   variant,
+   variant = "primary",
 }: FormSubmitProps) {
    const { pending } = useFormStatus();
    return (

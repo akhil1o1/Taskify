@@ -4,6 +4,7 @@ import { Plus } from "lucide-react";
 import Logo from "../../shared/logo";
 import { Button } from "../../ui/button";
 import { MobileSidebar } from "./mobile-sidebar";
+import FormPopover from "./form/form-popover";
 
 export default function DashboardNavbar() {
    return (
@@ -13,16 +14,21 @@ export default function DashboardNavbar() {
             <div className="hidden md:flex">
                <Logo />
             </div>
-            <Button
-               size={"sm"}
-               className="rounded-sm hidden md:block h-auto py-1.5 px-2"
-               variant={"primary"}
-            >
-               Create
-            </Button>
-            <Button size={"sm"} className="md:hidden" variant={"primary"}>
-               <Plus className="h-4 w-4" />
-            </Button>
+            <FormPopover align="start" side="bottom" sideOffset={18}>
+               <Button
+                  size={"sm"}
+                  className="rounded-sm hidden md:block h-auto py-1.5 px-2"
+                  variant={"primary"}
+               >
+                  Create
+               </Button>
+            </FormPopover>
+
+            <FormPopover>
+               <Button size={"sm"} className="md:hidden" variant={"primary"}>
+                  <Plus className="h-4 w-4" />
+               </Button>
+            </FormPopover>
          </div>
 
          <div className="ml-auto flex items-center gap-x-2">
