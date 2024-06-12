@@ -1,10 +1,10 @@
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import { Plus } from "lucide-react";
 
-import Logo from "../../shared/logo";
-import { Button } from "../../ui/button";
-import { MobileSidebar } from "./mobile-sidebar";
-import FormPopover from "./form/form-popover";
+import Logo from "../shared/logo";
+import { Button } from "../ui/button";
+import { MobileSidebar } from "./organization/mobile-sidebar";
+import FormPopover from "./organization/form/form-popover";
 
 export default function DashboardNavbar() {
    return (

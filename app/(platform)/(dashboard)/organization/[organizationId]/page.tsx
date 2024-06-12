@@ -4,11 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import Info from "@/components/dashboard/organization/info";
 import BoardList from "@/components/dashboard/organization/board-list";
 
-export default async function OrganizationIdPage({
-   params,
-}: {
-   params: { organizationId: string };
-}) {
+export default async function OrganizationIdPage() {
    return (
       <div className="w-full mb-20">
          <Info />

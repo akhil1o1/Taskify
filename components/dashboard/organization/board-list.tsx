@@ -25,7 +25,7 @@ export default async function BoardList() {
       },
    });
 
-   console.log(boards);
+   // console.log(boards);
 
    return (
       <div className="space-y-4">
