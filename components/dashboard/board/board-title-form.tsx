@@ -45,6 +45,11 @@ export default function BoardTitleForm({ data }: BoardTitleFormProps) {
    function onSubmit(formData: FormData) {
       const title = formData.get("title") as string;
       // console.log(title);
+
+      if(title === data.title) {
+         return setIsEditing(false);
+      }
+      
       execute({title, id: data.id})
    }
 

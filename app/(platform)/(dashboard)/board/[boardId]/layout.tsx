@@ -55,7 +55,7 @@ export default async function BoardIdLayout({
       notFound();
    }
 
-   console.log(board);
+   // console.log(board);
 
    return (
       <div
