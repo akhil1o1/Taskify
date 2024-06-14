@@ -12,7 +12,7 @@ import { useAction } from "@/hooks/use-action";
 
 import { Button } from "@/components/ui/button";
 import ListWrapper from "./list-wrapper";
-import { FormInput } from "../organization/form/form-input";
+import FormInput from "../organization/form/form-input";
 import FormSubmit from "../organization/form/form-submit";
 
 export default function ListForm() {

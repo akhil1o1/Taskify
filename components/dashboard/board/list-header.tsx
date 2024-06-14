@@ -8,13 +8,15 @@ import { updateList } from "@/actions/update-list";
 import { useAction } from "@/hooks/use-action";
 
 import { toast } from "sonner";
-import { FormInput } from "../organization/form/form-input";
+import FormInput from "../organization/form/form-input";
+import ListOptions from "./list-options";
 
 interface ListHeaderProps {
    data: List;
+   onAddCard : () => void;
 }
 
-export default function ListHeader({ data }: ListHeaderProps) {
+export default function ListHeader({ data, onAddCard }: ListHeaderProps) {
    const [title, setTitle] = useState(data.title);
    const [isEditing, setIsEditing] = useState(false);
 
@@ -23,7 +25,7 @@ export default function ListHeader({ data }: ListHeaderProps) {
 
    const { execute } = useAction(updateList, {
       onSuccess: (data) => {
-         toast.success(`Renamed to "${data.title}"`);
+         toast.success(`List renamed to "${data.title}"`);
          setTitle(data.title);
          disableEditing();
       },
@@ -92,6 +94,7 @@ export default function ListHeader({ data }: ListHeaderProps) {
                {data.title}
             </div>
          )}
+         <ListOptions onAddCard={onAddCard} data={data}/>
       </div>
    );
 }
