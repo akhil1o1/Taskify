@@ -95,7 +95,7 @@ const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
          <div className="pt-2 px-2">
             <Button
                onClick={enableEditing}
-               className="h-auto px-2 py-1 w-full justify-start text-muted-foreground text-sm"
+               className="h-auto px-2 py-1 w-full justify-start gap-x-2 text-muted-foreground text-sm"
                size={"sm"}
                variant={"ghost"}
             >
