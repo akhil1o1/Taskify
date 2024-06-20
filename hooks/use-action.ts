@@ -12,6 +12,8 @@ interface UseActionOptions<TOutput> {
    onComplete?: () => void;
 }
 
+// Custom hook abstraction for managing server action error, loading state, and response data, mimicking react query's useMutation functionality
+
 export const useAction = <TInput, TOutput>(
    action: Action<TInput, TOutput>,
    options: UseActionOptions<TOutput> = {}

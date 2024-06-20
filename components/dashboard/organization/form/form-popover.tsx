@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { useAction } from "@/hooks/use-action";
 import { createBoard } from "@/actions/create-board";
 
-import { FormInput } from "./form-input";
+import FormInput from "./form-input";
 import FormSubmit from "./form-submit";
 import FormPicker from "./form-picker";
 

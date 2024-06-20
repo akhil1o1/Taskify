@@ -68,7 +68,7 @@ export default function ListContainer({ boardId, data }: ListContainerProps) {
          return;
       }
 
-      // user moves a list
+      // if user moves a list
       if (type === "list") {
          const reorderedLists = reorder(
             orderedData,
@@ -85,6 +85,7 @@ export default function ListContainer({ boardId, data }: ListContainerProps) {
          executeUpdateListOrder({ items: reorderedLists, boardId });
       }
 
+      // if user moves a card
       if (type === "card") {
          let newOrderedData = [...orderedData];
 
@@ -117,7 +118,7 @@ export default function ListContainer({ boardId, data }: ListContainerProps) {
             setOrderedData(newOrderedData);
             executeUpdateCardOrder({ items: reorderedCards, boardId });
          } else {
-            // if card was moved in different list
+            // else if card was moved in different list
 
             // remove card from source list
             const [movedCard] = sourceList.cards.splice(source.index, 1);
