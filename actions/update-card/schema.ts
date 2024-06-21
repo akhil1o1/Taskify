@@ -2,12 +2,14 @@ import { z } from "zod";
 
 export const UpdateCard = z.object({
    id: z.string(),
-   title: z
-      .string({
-         invalid_type_error: "Title is required.",
-         required_error: "Title is required.",
-      })
-      .min(3, { message: "Title is too short! (min 3 characters)." }),
+   title: z.optional(
+      z
+         .string({
+            invalid_type_error: "Title is required.",
+            required_error: "Title is required.",
+         })
+         .min(3, { message: "Title is too short! (min 3 characters)." })
+   ),
    description: z.optional(
       z
          .string({
