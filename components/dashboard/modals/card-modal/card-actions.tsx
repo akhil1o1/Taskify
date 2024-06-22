@@ -13,11 +13,11 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface ActionsProps {
+interface CardActionsProps {
    data: CardWithLists;
 }
 
-export default function Actions({ data }: ActionsProps) {
+export default function CardActions({ data }: CardActionsProps) {
    const params = useParams();
 
    const { onClose } = useCardModal();
@@ -87,7 +87,7 @@ export default function Actions({ data }: ActionsProps) {
    );
 }
 
-Actions.Skeleton = () => {
+CardActions.Skeleton = () => {
    return (
       <div className="space-y-2 mt-2">
          <Skeleton className="w-20 h-4 bg-neutral-200" />

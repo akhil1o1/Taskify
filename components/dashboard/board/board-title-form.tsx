@@ -7,7 +7,7 @@ import { useAction } from "@/hooks/use-action";
 import { updateBoard } from "@/actions/update-board";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { FormInput } from "../organization/form/form-input";
+import FormInput from "../organization/form/form-input";
 
 interface BoardTitleFormProps {
    data: Board;

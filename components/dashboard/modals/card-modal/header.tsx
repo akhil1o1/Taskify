@@ -29,6 +29,11 @@ export default function Header({ data }: HeaderProps) {
          queryClient.invalidateQueries({
             queryKey: ["card", data.id],
          }); // clear cache
+
+         queryClient.invalidateQueries({
+            queryKey: ["card-logs", data.id],
+         }); // clear cache
+
          toast.success(`Card updated successfully`);
          setTitle(data.title);
       },

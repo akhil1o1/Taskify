@@ -31,7 +31,14 @@ export default function Description({ data }: DescriptionProps) {
 
    const { execute, fieldErrors } = useAction(updateCard, {
       onSuccess: (data) => {
-         queryClient.invalidateQueries({ queryKey: ["card", data.id] });
+         queryClient.invalidateQueries({
+            queryKey: ["card", data.id],
+         }); // clear cache
+
+         queryClient.invalidateQueries({
+            queryKey: ["card-logs", data.id],
+         }); // clear cache
+
          toast.success(`Card "${data.title} "updated successfully`);
          disableEditing();
       },
