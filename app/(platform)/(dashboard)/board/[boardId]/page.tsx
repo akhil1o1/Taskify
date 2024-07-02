@@ -37,6 +37,13 @@ export default async function BoardIdPage({ params }: BoardIdPageProps) {
                // order of the cards by order field
                order: "asc",
             },
+            include: {
+               attachments: {
+                  orderBy: {
+                     createdAt: "desc",
+                  },
+               },
+            },
          },
       },
    });

@@ -8,7 +8,6 @@ export default function ActivityPage() {
    return (
       <div className="w-full">
          <Info />
-
          <Separator className="my-2" />
          <Suspense fallback={<ActivityList.Skeleton />}>
             <ActivityList />

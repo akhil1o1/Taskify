@@ -46,13 +46,56 @@ model Card {
   order       Int
   description String? @db.Text
 
-  listId String
-  list   List   @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId      String
+  list        List          @relation(fields: [listId], references: [id], onDelete: Cascade)
+  labels      CardLabel[]
+  attachments Attachment[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([listId])
+}
+
+model Label {
+  id    String      @id @default(uuid())
+  name  String
+  color String
+  cards CardLabel[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// join table of card and labels
+model CardLabel {
+  id      String @id @default(uuid())
+  labelId String
+  cardId  String
+
+  card  Card  @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  label Label @relation(fields: [labelId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([labelId])
+  @@index([cardId])
+}
+
+model Attachment {
+  id   String @id @default(uuid())
+  url  String @db.Text
+  type String
+  cloudinaryId String
+
+  cardId String
+  card   Card   @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([cardId])
 }
 
 enum ACTION {
@@ -65,18 +108,30 @@ enum ENTITY_TYPE {
   BOARD
   LIST
   CARD
+  ATTACHMENT
+  LABEL
 }
 
 model AuditLog {
-  id         String      @id @default(uuid())
-  orgId      String
-  action     ACTION
-  entityId   String
-  entityType ENTITY_TYPE
+  id          String      @id @default(uuid())
+  orgId       String
+  action      ACTION
+  entityId    String
+  entityType  ENTITY_TYPE
   entityTitle String
-  userId     String
-  userImage  String @db.Text
-  userName   String @db.Text
+  userId      String
+  userImage   String      @db.Text
+  userName    String      @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// organization's board creation limit
+model OrgLimit {
+  id    String @id @default(uuid())
+  orgId String @unique
+  count Int    @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

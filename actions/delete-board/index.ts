@@ -10,6 +10,7 @@ import { InputType, ReturnType } from "./types";
 import { DeleteBoard } from "./schema";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { createAuditLog } from "@/lib/create-audit-log";
+import { decrementAvailableCount } from "@/lib/org-limit";
 
 async function handler(data: InputType): Promise<ReturnType> {
    const { userId, orgId } = auth();
@@ -28,6 +29,8 @@ async function handler(data: InputType): Promise<ReturnType> {
       board = await db.board.delete({
          where: { id, orgId },
       });
+      
+      await decrementAvailableCount();
 
       await createAuditLog({
          entityId: board.id,
@@ -35,6 +38,7 @@ async function handler(data: InputType): Promise<ReturnType> {
          entityType: ENTITY_TYPE.BOARD,
          action: ACTION.DELETE,
       });
+
    } catch (error) {
       return {
          error: "Failed to delete board.",

@@ -2,6 +2,8 @@ import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { HelpCircle, User2 } from "lucide-react";
+import { getAvailabelCount } from "@/lib/org-limit";
+import { MAX_FREE_BOARDS } from "@/constants/boards";
 
 import { db } from "@/lib/db";
 
@@ -24,6 +26,8 @@ export default async function BoardList() {
          createdAt: "desc",
       },
    });
+
+   const remainingBoards = MAX_FREE_BOARDS - await getAvailabelCount();
 
    // console.log(boards);
 
@@ -53,7 +57,9 @@ export default async function BoardList() {
                   className="aspect-video relative h-full w-full bg-muted rounded-sm flex flex-col gap-y-1 items-center justify-center hover:opacity-75 transition"
                >
                   <p className="text-sm">Create new board</p>
-                  <span className="text-xs">5 remaining</span>
+                  <span className="text-xs">
+                     {remainingBoards} remaining
+                  </span>
                   <Hint
                      sideOffset={40}
                      description={`Free Workspaces can have up to 5 open boards. For unlimited boards please upgrade this workspace.`}

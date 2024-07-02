@@ -11,7 +11,8 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import Header from "./header";
 import Description from "./description";
 import CardActions from "./card-actions";
-import Activity from "./acitvity";
+import Activity from "./activity";
+import AddToCard from "./add-to-card";
 
 export default function CardModal() {
    const { id, isOpen, onClose } = useCardModal();
@@ -45,11 +46,18 @@ export default function CardModal() {
                      )}
                   </div>
                </div>
-               {!cardData ? (
-                  <CardActions.Skeleton />
-               ) : (
-                  <CardActions data={cardData} />
-               )}
+               <div className="space-y-6">
+                  {!cardData ? (
+                     <AddToCard.Skeleton />
+                  ) : (
+                     <AddToCard data={cardData} />
+                  )}
+                  {!cardData ? (
+                     <CardActions.Skeleton />
+                  ) : (
+                     <CardActions data={cardData} />
+                  )}
+               </div>
             </div>
          </DialogContent>
       </Dialog>

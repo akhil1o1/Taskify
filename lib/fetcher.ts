@@ -1,3 +1,3 @@
-export default async function fetcher(url: stringz) {
+export default async function fetcher(url: string) {
    return fetch(url).then((res) => res.json());
 }

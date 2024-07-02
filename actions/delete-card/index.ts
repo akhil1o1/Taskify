@@ -9,6 +9,7 @@ import { InputType, ReturnType } from "./types";
 import { DeleteCard } from "./schema";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { createAuditLog } from "@/lib/create-audit-log";
+import { deleteFiles } from "@/lib/cloudinary";
 
 async function handler(data: InputType): Promise<ReturnType> {
    const { userId, orgId } = auth();
@@ -33,7 +34,24 @@ async function handler(data: InputType): Promise<ReturnType> {
                },
             },
          },
+         include: {
+            attachments: true,
+         },
       });
+
+
+      // delete card attachments from cloudinary
+      const publicIds: string[] = [];
+
+      card.attachments?.map((attachment) => {
+         publicIds.push(attachment.cloudinaryId);
+      });
+
+      console.log(publicIds);
+
+      if (publicIds.length > 0) {
+         await deleteFiles(publicIds);
+      }
 
       await createAuditLog({
          entityId: card.id,
