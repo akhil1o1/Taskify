@@ -1,5 +1,7 @@
-import { Card, List } from "@prisma/client";
+import { Card, List, Attachment } from "@prisma/client";
 
-export type ListWithCards = List & { cards: Card[] };
+export type ListWithCards = List & { cards: CardWithAttachments[] };
 
-export type CardWithLists = Card & { list: List };
+export type CardWithLists = CardWithAttachments & { list: List };
+
+export type CardWithAttachments = Card & { attachments: Attachment[] };

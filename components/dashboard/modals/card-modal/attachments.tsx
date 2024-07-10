@@ -23,9 +23,10 @@ import FormErrors from "../../organization/form/form-errros";
 
 interface AttachmentsProps {
    data: CardWithLists;
+   refetchData : () => void;
 }
 
-export default function Attachments({ data }: AttachmentsProps) {
+export default function Attachments({ data, refetchData }: AttachmentsProps) {
    const closeRef = useRef<ElementRef<"button">>(null);
 
    const params = useParams();
@@ -34,12 +35,12 @@ export default function Attachments({ data }: AttachmentsProps) {
       onSuccess: (data) => {
          toast.success(`${data.type} file added to the card`);
          closeRef.current?.click();
+         refetchData();
       },
       onError: (error) => {
          toast.error(error);
       },
    });
-
 
    function onSubmit(formData: FormData) {
       const boardId = params.boardId as string;
@@ -72,9 +73,9 @@ export default function Attachments({ data }: AttachmentsProps) {
                   aria-describedby="formData-error"
                />
                <p className="text-sm text-neutral-600 text-muted-foreground px-4">
-                  Image/PDF/CSV files supported
+                  Image/PDF files supported
                </p>
-               <FormErrors id="formData" errors={fieldErrors}/>
+               <FormErrors id="formData" errors={fieldErrors} />
                <FormSubmit
                   variant="primary"
                   className="px-5 mr-auto ml-4 mt-2 font-normal text-sm"

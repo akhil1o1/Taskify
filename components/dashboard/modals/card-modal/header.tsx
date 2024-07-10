@@ -15,25 +15,18 @@ import FormInput from "../../organization/form/form-input";
 
 interface HeaderProps {
    data: CardWithLists;
+   refetchData: () => void;
 }
 
-export default function Header({ data }: HeaderProps) {
+export default function Header({ data, refetchData }: HeaderProps) {
    const [title, setTitle] = useState(data.title);
-   const queryClient = useQueryClient();
    const params = useParams();
 
    const inputRef = useRef<ElementRef<"input">>(null);
 
    const { execute } = useAction(updateCard, {
       onSuccess: (data) => {
-         queryClient.invalidateQueries({
-            queryKey: ["card", data.id],
-         }); // clear cache
-
-         queryClient.invalidateQueries({
-            queryKey: ["card-logs", data.id],
-         }); // clear cache
-
+         refetchData();
          toast.success(`Card updated successfully`);
          setTitle(data.title);
       },

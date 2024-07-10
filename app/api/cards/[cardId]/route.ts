@@ -32,6 +32,7 @@ export async function GET(
                   title: true,
                },
             },
+            attachments: {orderBy : {createdAt : "desc"}},
          },
       });
 

@@ -108,7 +108,6 @@ enum ENTITY_TYPE {
   BOARD
   LIST
   CARD
-  ATTACHMENT
   LABEL
 }
 

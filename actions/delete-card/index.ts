@@ -47,7 +47,7 @@ async function handler(data: InputType): Promise<ReturnType> {
          publicIds.push(attachment.cloudinaryId);
       });
 
-      console.log(publicIds);
+      // console.log(publicIds);
 
       if (publicIds.length > 0) {
          await deleteFiles(publicIds);

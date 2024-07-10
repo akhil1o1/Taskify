@@ -18,28 +18,21 @@ import { Button } from "@/components/ui/button";
 
 interface DescriptionProps {
    data: CardWithLists;
+   refetchData : () => void;
 }
 
-export default function Description({ data }: DescriptionProps) {
+export default function Description({ data, refetchData }: DescriptionProps) {
    const [isEditing, setIsEditing] = useState(false);
 
    const params = useParams();
-   const queryClient = useQueryClient();
 
    const textareaRef = useRef<ElementRef<"textarea">>(null);
    const formRef = useRef<ElementRef<"form">>(null);
 
    const { execute, fieldErrors } = useAction(updateCard, {
       onSuccess: (data) => {
-         queryClient.invalidateQueries({
-            queryKey: ["card", data.id],
-         }); // clear cache
-
-         queryClient.invalidateQueries({
-            queryKey: ["card-logs", data.id],
-         }); // clear cache
-
          toast.success(`Card "${data.title} "updated successfully`);
+         refetchData();
          disableEditing();
       },
       onError: (error) => {

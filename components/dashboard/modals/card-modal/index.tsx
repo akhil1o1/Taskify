@@ -13,32 +13,58 @@ import Description from "./description";
 import CardActions from "./card-actions";
 import Activity from "./activity";
 import AddToCard from "./add-to-card";
+import AttachmentList from "./attachment-list";
 
 export default function CardModal() {
    const { id, isOpen, onClose } = useCardModal();
 
-   const { data: cardData } = useQuery<CardWithLists>({
-      queryKey: ["card", id],
-      queryFn: () => fetcher(`/api/cards/${id}`),
-   });
+   const { data: cardData, refetch: refetchCardData } = useQuery<CardWithLists>(
+      {
+         queryKey: ["card", id],
+         queryFn: () => fetcher(`/api/cards/${id}`),
+      }
+   );
 
-   const { data: auditLogsData } = useQuery<AuditLog[]>({
+   const { data: auditLogsData, refetch: refetchAuditLogs } = useQuery<
+      AuditLog[]
+   >({
       queryKey: ["card-logs", id],
       queryFn: () => fetcher(`/api/cards/${id}/logs`),
    });
 
+   console.log(cardData);
+   console.log(auditLogsData);
+
+   function refetchData() {
+      refetchCardData();
+      refetchAuditLogs();
+   }
+
    return (
       <Dialog open={isOpen} onOpenChange={onClose}>
          <DialogContent>
-            {!cardData ? <Header.Skeleton /> : <Header data={cardData} />}
+            {!cardData ? (
+               <Header.Skeleton />
+            ) : (
+               <Header data={cardData} refetchData={refetchData} />
+            )}
             <div className="grid grid-cols-1 md:grid-cols-4 md:gap-4">
                <div className="col-span-3">
                   <div className="w-full space-y-6">
                      {!cardData ? (
                         <Description.Skeleton />
                      ) : (
-                        <Description data={cardData} />
+                        <Description
+                           data={cardData}
+                           refetchData={refetchData}
+                        />
                      )}
+                     {cardData?.attachments.length ? (
+                        <AttachmentList
+                           data={cardData}
+                           refetchData={refetchData}
+                        />
+                     ) : undefined}
                      {!auditLogsData ? (
                         <Activity.Skeleton />
                      ) : (
@@ -48,14 +74,15 @@ export default function CardModal() {
                </div>
                <div className="space-y-6">
                   {!cardData ? (
-                     <AddToCard.Skeleton />
+                     <>
+                        <AddToCard.Skeleton />
+                        <CardActions.Skeleton />
+                     </>
                   ) : (
-                     <AddToCard data={cardData} />
-                  )}
-                  {!cardData ? (
-                     <CardActions.Skeleton />
-                  ) : (
-                     <CardActions data={cardData} />
+                     <>
+                        <AddToCard refetchData={refetchData} data={cardData} />
+                        <CardActions data={cardData} />
+                     </>
                   )}
                </div>
             </div>

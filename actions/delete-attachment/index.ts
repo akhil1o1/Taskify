@@ -8,8 +8,8 @@ import { db } from "@/lib/db";
 import { createAuditLog } from "@/lib/create-audit-log";
 import { InputType, ReturnType } from "./types";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { CreateAttachment } from "./schema";
-import { uploadFile } from "@/lib/cloudinary";
+import { DeleteAttachment } from "./schema";
+import { deleteFiles } from "@/lib/cloudinary";
 
 async function handler(data: InputType): Promise<ReturnType> {
    const { userId, orgId } = auth();
@@ -20,35 +20,18 @@ async function handler(data: InputType): Promise<ReturnType> {
       };
    }
 
-   const { formData, cardId, boardId } = data;
-
-   const file = formData.get("attachment") as File;
-   console.log(file);
+   const { id, cardId, boardId } = data;
 
    let attachment;
 
    try {
-      const { fileUrl, publicId } = await uploadFile(file);
-
-      if (!fileUrl || !publicId) {
-         throw new Error();
-      }
-
-      attachment = await db.attachment.create({
-         data: {
-            url: fileUrl,
-            type: file.type,
-            cardId: cardId,
-            cloudinaryId: publicId,
-         },
-         include: {
-            card: {
-               select: {
-                  title: true,
-               },
-            },
-         },
+      attachment = await db.attachment.delete({
+         where: { id },
+         include: { card: { select: { title: true } } },
       });
+
+      // delete attachment from cloudinary
+      await deleteFiles([attachment.cloudinaryId]);
 
       await createAuditLog({
          entityId: cardId,
@@ -58,7 +41,7 @@ async function handler(data: InputType): Promise<ReturnType> {
       });
    } catch (error) {
       return {
-         error: "Failed to create attachment.",
+         error: "Failed to delete attachment.",
       };
    }
 
@@ -66,4 +49,4 @@ async function handler(data: InputType): Promise<ReturnType> {
    return { data: attachment };
 }
 
-export const createAttachment = createSafeAction(CreateAttachment, handler);
+export const deleteAttachment = createSafeAction(DeleteAttachment, handler);

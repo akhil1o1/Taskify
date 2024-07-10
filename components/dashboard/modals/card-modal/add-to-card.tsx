@@ -9,9 +9,10 @@ import Attachments from "./attachments";
 
 interface AddToCardProps {
    data: CardWithLists;
+   refetchData : () => void;
 }
 
-export default function AddToCard({ data }: AddToCardProps) {
+export default function AddToCard({ data, refetchData }: AddToCardProps) {
    return (
       <div className="space-y-2 mt-2">
          <p className="text-xs font-semibold">Add to card</p>
@@ -23,7 +24,7 @@ export default function AddToCard({ data }: AddToCardProps) {
             <Tag className="h-4 w-4 mr-2" />
             Label
          </Button>
-         <Attachments data={data} />
+         <Attachments data={data} refetchData={refetchData}/>
       </div>
    );
 }
