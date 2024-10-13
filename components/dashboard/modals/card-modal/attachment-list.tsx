@@ -56,7 +56,7 @@ export default function AttachmentList({
          <div className="w-full">
             <p className="font-semibold text-neutral-700 mb-2 ">Attachments</p>
             <ol className="gap-2 flex flex-wrap">
-               {data?.attachments.map((attachment) => (
+               {data.attachments.map((attachment) => (
                   <a href={attachment.url} target="_blank">
                      <div
                         key={attachment.id}
